@@ -1,11 +1,11 @@
 default:  &default
-  adapter: <%= ENV['DATABASE_ADAPTER'].presence || "postgres" %>
+  adapter: postgresql
   encoding: <%= ENV['DATABASE_ENCODING'].presence || "utf8" %>
   reconnect: <%= ENV['DATABASE_RECONNECT'].presence || "true" %>
   database: <%= ENV['DATABASE_NAME'].presence || "huginn_lite" %>
   pool: <%= ENV['DATABASE_POOL'].presence || "2" %>
   username: <%= ENV['DATABASE_USERNAME'].presence || "huginn" %>
-  password: <%= ENV['DATABASE_PASSWORD'] || "DEV-Eem3aim7TaiphohS1oopee7oophul1Th" %>
+  password: <%= ENV['DATABASE_PASSWORD'] || "insecure-password" %>
   host: <%= ENV['DATABASE_HOST'] || "localhost" %>
   port: <%= ENV['DATABASE_PORT'] || "5400" %>
   strict: false

@@ -1,14 +1,26 @@
-# Docker-compose for the 0.24.3 overrides (lastest)
+
 
 version: "3"
 services:
+  app: 
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_PASSWORD=insecure-password
+      - DATABASE_USERNAME=huginn
+      - DATABASE_NAME=huginn_lite
+    depends_on:
+      - pg
+    links:
+      - pg
   pg:
     container_name: huginn_db
     image: postgres:14
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=DEV-Eem3aim7TaiphohS1oopee7oophul1Th
+      - POSTGRES_PASSWORD=insecure-password
       - POSTGRES_USER=huginn
       - POSTGRES_DB=huginn_lite
     ports:

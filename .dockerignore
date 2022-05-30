@@ -29,10 +29,13 @@ pickle-email-*.html
 .env
 deployment/tmp
 deployment/cookbooks
-.vagrant
 .*un~
 .ruby-gemset
 .ruby-version
 manifest.yml
 config/unicorn.rb
 db/schema.rb
+.github
+.s2i
+docker-compose.yml
+Dockerfile

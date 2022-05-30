@@ -113,7 +113,10 @@ class HuginnScheduler < LongRunnable::Worker
 
   def setup
     tzinfo_friendly_timezone = ActiveSupport::TimeZone::MAPPING[ENV['TIMEZONE'].presence || "Pacific Time (US & Canada)"]
-
+    if tzinfo_friendly_timezone.nil?
+      tzinfo_friendly_timezone = ActiveSupport::TimeZone::MAPPING["Pacific Time (US & Canada)"]
+      Rails.logger.warn("TIMEZONE env is not an activesupport valid key. Fallback to Pacific Time")
+    end
     # Schedule event propagation.
     every '1m' do
       propagate!

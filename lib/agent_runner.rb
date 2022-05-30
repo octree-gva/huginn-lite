@@ -115,6 +115,5 @@ class AgentRunner
   end
 end
 
-require 'agents/local_file_agent'
 require 'huginn_scheduler'
 require 'delayed_job_worker'

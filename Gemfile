@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>=2.5.0'
+ruby RUBY_VERSION
 
 # Ensure github repositories are fetched using HTTPS
 git_source(:github) do |repo_name|
@@ -71,6 +71,7 @@ gem 'typhoeus', '~> 1.3.1'
 gem 'uglifier', '~> 2.7.2'
 gem 'bootsnap', require: false
 gem 'rickshaw_rails', '~> 1.4'
+gem 'mini_racer', '~> 0.4.0'
 group :development do
   gem 'better_errors', '~> 1.1'
   gem 'binding_of_caller', '~> 0.8.0'
@@ -78,7 +79,6 @@ group :development do
   gem 'guard-livereload', '~> 2.5.1'
   gem 'guard-rspec', '~> 4.7.3'
   gem 'rack-livereload', '~> 0.3.16'
-  gem 'letter_opener_web', '~> 1.3.1'
   gem 'web-console', '>= 3.3.0'
 
   gem 'capistrano', '~> 3.11.0'
@@ -93,7 +93,7 @@ group :development do
 
   group :test do
     gem 'coveralls', '~> 0.8.23', require: false
-    gem 'capybara', '~> 2.18'
+    gem 'capybara'
     gem 'capybara-screenshot'
     gem 'capybara-select-2', github: 'Hirurg103/capybara_select2', ref: 'fbf22fb74dec10fa0edcd26da7c5184ba8fa2c76', require: false
     gem 'poltergeist'
@@ -112,9 +112,6 @@ group :development do
   end
 end
 
-group :production do
-  gem 'unicorn', '~> 5.1.0'
-end
 
 # Platform requirements.
 require 'rbconfig'
@@ -128,7 +125,7 @@ ENV['DATABASE_ADAPTER'] ||= 'postgresql'
 gem 'pg', '~> 1.1.3'
 
 
-
-GemfileHelper.parse_each_agent_gem(ENV['ADDITIONAL_GEMS']) do |args|
-  gem *args
+ENV['RAILS_ROOT'] ||= File.dirname(__FILE__)
+GemfileHelper.each_gem do |positional_args, options|
+  gem *positional_args, **options
 end
