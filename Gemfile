@@ -79,7 +79,6 @@ group :development do
   gem 'guard-livereload', '~> 2.5.1'
   gem 'guard-rspec', '~> 4.7.3'
   gem 'rack-livereload', '~> 0.3.16'
-  gem 'letter_opener_web', '~> 1.3.1'
   gem 'web-console', '>= 3.3.0'
 
   gem 'capistrano', '~> 3.11.0'
@@ -126,7 +125,7 @@ ENV['DATABASE_ADAPTER'] ||= 'postgresql'
 gem 'pg', '~> 1.1.3'
 
 
-
-GemfileHelper.parse_each_agent_gem(ENV['ADDITIONAL_GEMS']) do |args|
-  gem *args
+ENV['RAILS_ROOT'] ||= File.dirname(__FILE__)
+GemfileHelper.each_gem do |positional_args, options|
+  gem *positional_args, **options
 end

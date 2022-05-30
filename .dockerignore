@@ -38,3 +38,4 @@ db/schema.rb
 .github
 .s2i
 docker-compose.yml
+Dockerfile

@@ -107,9 +107,6 @@ Huginn::Application.routes.draw do
              },
              sign_out_via: [:post, :delete]
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
 
   get "/about" => "home#about"
   root :to => "home#index"

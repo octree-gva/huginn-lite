@@ -1,3 +1,4 @@
+require "yaml"
 class GemfileHelper
   class << self
     def rails_env
@@ -9,7 +10,16 @@ class GemfileHelper
           'test' if ARGV.any? { |arg| /\Aspec(?:\z|:)/ === arg }
         end || 'development'
     end
-
+   def each_gem(&block)
+      gems = YAML.load_file(File.join(ENV["RAILS_ROOT"], "config/huginn.yml"))["huginn"]["agents"]
+      return if gems.nil?
+      gems.each do |gem_name, gem_options|
+        gem_parameters = [gem_name]
+        gem_parameters << gem_options.delete("version") unless gem_options["version"].nil?
+        gem_parameters << gem_options.delete("version_max") unless gem_options["version_max"].nil?
+        block.call(gem_parameters, gem_options)
+      end
+    end
     def load_dotenv
       dotenv_dir = Dir[File.join(File.dirname(__FILE__), '../vendor/gems/dotenv-[0-9]*')].sort.last
 
@@ -61,6 +71,8 @@ class GemfileHelper
       puts warning
       raise "Could not load huginn settings from .env file."
     end
+
+ 
 
     def warning
       <<-EOF
