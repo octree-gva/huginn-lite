@@ -20,7 +20,8 @@ build_docker_image.sh
 .sass-cache
 capybara-*.html
 .rspec
-!/tmp/.gitkeep
+!/tmp/.gitignore
+!/tmp/pids/.gitignore
 **.orig
 rerun.txt
 pickle-email-*.html

@@ -89,7 +89,10 @@ RUN bundle binstubs --all
 
 COPY . $ROOT
 RUN SECRET_KEY_BASE=assets bundle exec rails assets:precompile
-RUN mkdir -p /etc/supervisor/conf.d  && foreman export supervisord /etc/supervisor/conf.d
+RUN mkdir -p /etc/supervisor/conf.d  && foreman export supervisord /etc/supervisor/conf.d -u huginn -a huginn && \
+    cat $ROOT/entrypoints/supervisor.docker.conf > /tmp/newfile && cat /etc/supervisor/conf.d/huginn.conf >> /tmp/newfile && \
+    mv /tmp/newfile /etc/supervisor/conf.d/huginn.conf
+
 
 RUN rm -rf /usr/local/bundle/cache/*.gem && \
     find /usr/local/bundle/gems/ -name "*.c" -delete && \
@@ -176,6 +179,12 @@ COPY --from=node /usr/local/share /usr/local/share
 COPY --from=node /usr/local/lib /usr/local/lib
 COPY --from=node /usr/local/include /usr/local/include
 COPY --from=node /usr/local/bin /usr/local/bin
+
+RUN mkdir -p /var/log/huginn && \
+     mkdir -p /home/huginn/app/tmp/pids && \
+     mkdir -p /home/huginn/app/tmp/sockets && \
+     mkdir -p /home/huginn/app/tmp/cache && \
+     chown huginn:huginn -R tmp
 
 EXPOSE 3000
 VOLUME $ROOT/log

@@ -39,14 +39,14 @@ gem 'daemons', '~> 1.1.9'
 gem 'delayed_job', '~> 4.1.8'
 gem 'delayed_job_active_record', github: 'dsander/delayed_job_active_record', branch: 'rails6-zeitwerk'
 gem 'devise', '~> 4.8.1'
-gem 'em-http-request', '~> 1.1.2'
+gem 'em-http-request', '~> 1.1.7'
 gem 'faraday', '~> 0.9'
 gem 'faraday_middleware', '~> 0.12.2'
 gem 'font-awesome-sass', '~> 4.7.0'
 gem 'foreman', '~> 0.63.0'
 gem 'geokit', '~> 1.8.4'
 gem 'geokit-rails', '~> 2.2.0'
-gem 'httparty', '~> 0.13'
+gem 'httparty', '~> 0.20'
 gem 'httmultiparty', '~> 0.3.16'
 gem 'jquery-rails', '~> 4.2.1'
 gem 'huginn_agent'
@@ -127,5 +127,6 @@ gem 'pg', '~> 1.1.3'
 
 ENV['RAILS_ROOT'] ||= File.dirname(__FILE__)
 GemfileHelper.each_gem do |positional_args, options|
+  puts "add gem", positional_args, options
   gem *positional_args, **options
 end
