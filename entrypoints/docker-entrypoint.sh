@@ -9,4 +9,4 @@ msg "Starting supervisor…"
 
 exec "$@"
 
-supervisord 
+supervisord -c /etc/supervisor/conf.d/huginn.conf
