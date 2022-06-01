@@ -71,7 +71,6 @@ gem 'typhoeus', '~> 1.3.1'
 gem 'uglifier', '~> 2.7.2'
 gem 'bootsnap', require: false
 gem 'rickshaw_rails', '~> 1.4'
-gem 'mini_racer', '~> 0.4.0'
 group :development do
   gem 'better_errors', '~> 1.1'
   gem 'binding_of_caller', '~> 0.8.0'
